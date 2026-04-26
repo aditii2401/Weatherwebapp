@@ -36,13 +36,13 @@ async function getFetchData(endPoint, city){
     return response.json()
 }
 function getweatherIcon(id){
-  if (id <= 232) return 'thunderstorm.svg'
-  if (id <= 321) return 'drizzle.svg'
-  if (id <= 531) return 'rain.svg'
-  if (id <= 622) return 'snow.svg'
-  if (id <= 781) return 'atmosphere.svg'
-  if (id <= 800) return 'clear.svg'
-  else return 'clouds.svg'
+  if (id <= 232) return 'assets/weather/thunderstorm.svg'
+  if (id <= 321) return 'assets/weather/drizzle.svg'
+  if (id <= 531) return 'assets/weather/rain.svg'
+  if (id <= 622) return 'assets/weather/snow.svg'
+  if (id <= 781) return 'assets/weather/atmosphere.svg'
+  if (id <= 800) return 'assets/weather/clear.svg'
+  else return 'assets/weather/clouds.svg'
 }
 function getCurrentDate(){
   const currentDate = new Date()
@@ -77,7 +77,7 @@ async function updateWeatherInfo(city){
     currentDateTxt.textContent = getCurrentDate()
     console.log(getCurrentDate())
 
-    weatherSummaryImg.src = `assets/assets/weather/${getweatherIcon(id)}`
+    weatherSummaryImg.src = `assets/weather/${getweatherIcon(id)}`
 
     await updateForecastsInfo(city)
     showDisplaySection(weatherInfoSection)
@@ -118,7 +118,7 @@ async function updateForecastsInfo(city){
   const forecastItem = `
         <div class="forecast-item">
                     <h5 class="forecast-item-date regular-txt">${dateResult}</h5>
-                    <img src="assets/assets/weather/${getweatherIcon(id)}" alt="thunder" class="forecast-item-img">
+                    <img src="assets/weather/${getweatherIcon(id)}" alt="thunder" class="forecast-item-img">
                     <h5 class="forecast-item-temperature">${Math.round(temp)} ℃</h5>
         </div>
         `

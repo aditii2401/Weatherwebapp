@@ -4,7 +4,7 @@ const searchCitySection = document.querySelector('.search-city')
 const weatherInfoSection = document.querySelector('.weather-info')
 const notFoundSection = document.querySelector('.not-found')
 const apiKey = '93efc4ccb02a60fef3b6f976e066400c'
-
+ 
 const countryTxt = document.querySelector('.country-txt')
 const tempTxt = document.querySelector('.temp-txt')
 const conditionTxt = document.querySelector('.condition-txt')
@@ -27,22 +27,22 @@ cityInput.addEventListener('keydown' ,(event) =>{
     cityInput.blur()
     }
 })
-
+ 
 async function getFetchData(endPoint, city){
     const apiUrl = `https://api.openweathermap.org/data/2.5/${endPoint}?q=${city}&appid=${apiKey}&units=metric`
-
+ 
     const response = await fetch(apiUrl)
-
+ 
     return response.json()
 }
 function getweatherIcon(id){
-  if (id <= 232) return 'assets/thunderstorm.svg'
-  if (id <= 321) return 'assets/drizzle.svg'
-  if (id <= 531) return 'assets/rain.svg'
-  if (id <= 622) return 'assets/snow.svg'
-  if (id <= 781) return 'assets/atmosphere.svg'
-  if (id <= 800) return 'assets/clear.svg'
-  else return 'assets/clouds.svg'
+  if (id <= 232) return 'thunderstorm.svg'
+  if (id <= 321) return 'drizzle.svg'
+  if (id <= 531) return 'rain.svg'
+  if (id <= 622) return 'snow.svg'
+  if (id <= 781) return 'atmosphere.svg'
+  if (id <= 800) return 'clear.svg'
+  else return 'clouds.svg'
 }
 function getCurrentDate(){
   const currentDate = new Date()
@@ -60,25 +60,25 @@ async function updateWeatherInfo(city){
       return 
     }
     console.log(weatherData)
-
+ 
     const{
       name: country,
       main: {temp, humidity},
       weather: [{id, main}],
       wind: {speed}
     } = weatherData
-
+ 
     countryTxt.textContent = country
     tempTxt.textContent = temp + ' ℃'
     conditionTxt.textContent = main
     humidityTxt.textContent = humidity + '%'
     windTxt.textContent = speed + ' M/s'
-
+ 
     currentDateTxt.textContent = getCurrentDate()
     console.log(getCurrentDate())
-
+ 
     weatherSummaryImg.src = `assets/weather/${getweatherIcon(id)}`
-
+ 
     await updateForecastsInfo(city)
     showDisplaySection(weatherInfoSection)
 }
@@ -86,21 +86,21 @@ async function updateForecastsInfo(city){
   const forecastsData = await getFetchData('forecast', city)
   const timeTaken = '12:00:00'
   const todayDate = new Date().toISOString().split('T')[0]
-
+ 
   forecastItemContainer.innerHTML = ''
-
+ 
   forecastsData.list.forEach(forecastWeather =>{
     if(forecastWeather.dt_txt.includes(timeTaken) &&
      !forecastWeather.dt_txt.includes(todayDate)){
      updateForecastsItems(forecastWeather)
     }
   })
-
+ 
   console.log(todayDate)
   console.log(forecastsData)
-
+ 
  }
-
+ 
  function updateForecastsItems(weatherData){
   console.log(weatherData)
   const {
@@ -108,7 +108,7 @@ async function updateForecastsInfo(city){
     weather: [{id}],
     main: {temp}
   } = weatherData
-
+ 
   const dateTaken = new Date(date)
   const dateOption = {
     day: '2-digit',
@@ -122,13 +122,13 @@ async function updateForecastsInfo(city){
                     <h5 class="forecast-item-temperature">${Math.round(temp)} ℃</h5>
         </div>
         `
-
+ 
         forecastItemContainer.insertAdjacentHTML('beforeend', forecastItem)
  }
-
+ 
 function showDisplaySection(section){
   [weatherInfoSection, searchCitySection, notFoundSection ]
     .forEach(section => section.style.display = 'none')
-
+ 
   section.style.display = 'flex'  
 }
